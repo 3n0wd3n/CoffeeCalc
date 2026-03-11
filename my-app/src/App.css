@@ -114,6 +114,13 @@ main {
   font-weight: bold;
   text-align: center;
 }
+
+.listening-mode .error-text {
+  margin-top: 10px;
+  color: #c00;
+  font-size: 0.9rem;
+  text-align: center;
+}
 .manual-mode input {
   width: 100%;
   padding: 12px 10px;

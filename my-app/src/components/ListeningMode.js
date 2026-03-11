@@ -13,6 +13,7 @@ import { calculateDevelopmentTimes, secondsToTimeString } from "../utils/timeUti
 function ListeningMode({ onResults }) {
   const [listening, setListening] = useState(false);
   const [elapsed, setElapsed] = useState(0);
+  const [error, setError] = useState(null);
   const audioContextRef = useRef(null);
   const processorRef = useRef(null);
   const startTimeRef = useRef(null);
@@ -22,6 +23,11 @@ function ListeningMode({ onResults }) {
   const threshold = 0.2; // tune depending on environment
 
   const start = async () => {
+    setError(null);
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setError("Microphone API not supported by this browser");
+      return;
+    }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -45,7 +51,18 @@ function ListeningMode({ onResults }) {
       }, 100);
     } catch (err) {
       console.error("microphone access denied", err);
-      alert("Could not access microphone");
+      // give more descriptive guidance
+      let msg = "Could not access microphone. ";
+      if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
+        msg += "Permission was denied. Please allow microphone use.";
+      } else if (err.name === "NotFoundError") {
+        msg += "No microphone device was found.";
+      } else if (err.name === "NotReadableError") {
+        msg += "Microphone is busy or unavailable.";
+      } else {
+        msg += "Make sure you are running on HTTPS and that the browser supports getUserMedia.";
+      }
+      setError(msg);
     }
   };
 
@@ -96,6 +113,7 @@ function ListeningMode({ onResults }) {
     <div className='listening-mode'>
       <h3>Listening for first crack</h3>
       <button onClick={listening ? stop : start}>{listening ? "Stop listening" : "Start listening"}</button>
+      {error && <p className='error-text'>{error}</p>}
       {listening && <p className='elapsed-display'>Elapsed: {secondsToTimeString(elapsed)}</p>}
     </div>
   );
