@@ -84,7 +84,8 @@ main {
 }
 
 .manual-mode,
-.listening-mode {
+.listening-mode,
+.ratio-mode {
   margin: 20px auto;
   max-width: 360px;
   padding: 24px;
@@ -94,14 +95,16 @@ main {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 .manual-mode label,
-.listening-mode label {
+.listening-mode label,
+.ratio-mode label {
   display: block;
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
 
 .manual-mode h3,
-.listening-mode h3 {
+.listening-mode h3,
+.ratio-mode h3 {
   margin-top: 0;
   margin-bottom: 12px;
   font-size: 1.1rem;
@@ -162,7 +165,8 @@ main {
   font-weight: bold;
 }
 
-.percentage-list {
+.percentage-list,
+.ratio-list {
   margin: 20px auto;
   max-width: 360px;
   padding: 24px;
@@ -171,11 +175,13 @@ main {
   color: #222;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
-.percentage-list ul {
+.percentage-list ul,
+.ratio-list ul {
   list-style: none;
   padding: 0;
 }
-.percentage-list li {
+.percentage-list li,
+.ratio-list li {
   margin: 6px 0;
   font-size: 1rem;
 }
