@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { calculateDTRRemainingTimes, secondsToTimeString } from "../utils/timeUtils";
+import { calculateDTRRemainingTimes } from "../utils/timeUtils";
 
 /**
  * Development Time Ratio (DTR) planner.  User enters first-crack time and
